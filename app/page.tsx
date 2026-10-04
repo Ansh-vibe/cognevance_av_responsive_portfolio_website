@@ -1,47 +1,43 @@
+'use client'
+
+import { FormEvent, useState } from 'react'
+import { ArrowUpRight, Check, Github, Linkedin, Mail, Menu, MoveUpRight, X } from 'lucide-react'
+import { portfolio } from '@/data/portfolio'
+
+function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return <a className="inline-link" href={href} target="_blank" rel="noreferrer">{children}<ArrowUpRight aria-hidden="true" /></a>
+}
+
 export default function Page() {
-  return (
-    <main
-      style={{
-        colorScheme: 'light dark',
-        position: 'relative',
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'light-dark(#fff, #000)',
-        color: 'light-dark(#000, #fff)',
-      }}
-    >
-      <svg
-        aria-hidden="true"
-        style={{ width: 80, height: 80 }}
-        width={80}
-        height={80}
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <p
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: 'calc(50% + 56px)',
-          transform: 'translateX(-50%)',
-          whiteSpace: 'nowrap',
-          fontSize: '14px',
-          fontWeight: 500,
-          color: 'light-dark(#71717a, #a1a1aa)',
-        }}
-      >
-        Your v0 generation will show here.
-      </p>
-    </main>
-  )
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [error, setError] = useState('')
+
+  async function submitContact(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault(); setStatus('sending'); setError('')
+    const form = event.currentTarget
+    const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) })
+    const data = await response.json()
+    if (!response.ok) { setError(data.error || 'Please try again.'); setStatus('error'); return }
+    form.reset(); setStatus('success')
+  }
+
+  return <main>
+    <header className="site-header"><a className="monogram" href="#top" aria-label="Ansh Vishwakarma home">AV<span>.</span></a><nav className={menuOpen ? 'nav-links is-open' : 'nav-links'} aria-label="Primary navigation"><a href="#about" onClick={() => setMenuOpen(false)}>About</a><a href="#work" onClick={() => setMenuOpen(false)}>Work</a><a href="#experience" onClick={() => setMenuOpen(false)}>Experience</a><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></nav><a className="header-cta" href="#contact">Let&apos;s talk <MoveUpRight aria-hidden="true" /></a><button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>{menuOpen ? <X /> : <Menu />}</button></header>
+
+    <section id="top" className="hero section-shell"><div className="hero-copy"><p className="eyebrow">FULL-STACK DEVELOPER / FOUNDER</p><h1>Useful software,<br /><em>beautifully shipped.</em></h1><p className="hero-intro">{portfolio.intro}</p><div className="hero-actions"><a className="button button-primary" href="#work">See selected work <ArrowUpRight aria-hidden="true" /></a><a className="text-button" href={portfolio.email}>Email me <ArrowUpRight aria-hidden="true" /></a></div></div><div className="hero-mark" aria-hidden="true"><div className="mark-grid" /><span>AV</span><small>IND / 2026</small></div></section>
+
+    <section className="metrics section-shell" aria-label="Highlights">{portfolio.metrics.map((metric) => <div className="metric" key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</section>
+
+    <section id="about" className="section-shell split-section"><div className="section-label"><span>01</span><span>About</span></div><div className="section-content about-content"><h2>Engineering with a<br /><em>human point of view.</em></h2><p>I&apos;m Ansh, a BCA student and builder based in Kanpur, India. I work across product thinking, interface design, frontend engineering, and backend systems to turn rough ideas into things people can actually use.</p><p>Through OREN, I help hospitality teams move from “we should build this” to a live website with a clear journey, considered details, and a practical path forward.</p><div className="social-row"><ExternalLink href={portfolio.links.github}>GitHub</ExternalLink><ExternalLink href={portfolio.links.linkedin}>LinkedIn</ExternalLink></div></div></section>
+
+    <section id="work" className="section-shell split-section work-section"><div className="section-label"><span>02</span><span>Selected work</span></div><div className="section-content"><div className="section-heading"><h2>Things I&apos;ve<br /><em>helped move forward.</em></h2><p>A mix of client work, product experiments, and analytical tools. Preview links are labeled as demos where applicable.</p></div><div className="project-list">{portfolio.projects.map((project) => <article className="project-card" key={project.number}><div className="project-number">{project.number}</div><div className="project-main"><p className="tag">{project.tag}</p><h3>{project.title}</h3><p>{project.description}</p><div className="project-links">{project.links.map((link) => <ExternalLink key={link.href} href={link.href}>{link.label}{project.tag === 'Client websites' && <span className="demo-label">Preview / demo</span>}</ExternalLink>)}</div></div></article>)}</div></div></section>
+
+    <section id="experience" className="section-shell split-section experience-section"><div className="section-label"><span>03</span><span>Experience</span></div><div className="section-content"><h2>Learning by<br /><em>doing the work.</em></h2><div className="timeline">{portfolio.experience.map((item) => <div className="timeline-item" key={item.company}><div className="timeline-date">{item.date}</div><div><h3>{item.role}</h3><p className="company">{item.company}</p><p>{item.detail}</p></div></div>)}</div></div></section>
+
+    <section className="section-shell details-grid"><div><p className="eyebrow">EDUCATION</p><h3>{portfolio.education.degree}</h3><p>{portfolio.education.school}<br />{portfolio.education.date} · {portfolio.education.result}</p></div><div><p className="eyebrow">LEADERSHIP</p>{portfolio.leadership.map((item) => <div className="detail-item" key={item.title}><h3>{item.title}</h3><p>{item.detail}</p></div>)}</div><div><p className="eyebrow">CERTIFICATIONS & LEARNING</p><ul className="cert-list">{portfolio.certifications.map((cert) => <li key={cert}><Check aria-hidden="true" />{cert}</li>)}</ul></div></section>
+
+    <section id="contact" className="contact-section"><div className="section-shell contact-grid"><div><p className="eyebrow">04 / GET IN TOUCH</p><h2>Have a good idea?<br /><em>Let&apos;s make it real.</em></h2><p className="contact-note">Open to full-stack projects, thoughtful collaborations, and conversations about building for the web.</p><a className="email-link" href={portfolio.email}>contact.ansh03@gmail.com <ArrowUpRight aria-hidden="true" /></a></div><form className="contact-form" onSubmit={submitContact}><div className="form-row"><label>Name<input name="name" required maxLength={80} placeholder="Your name" /></label><label>Email<input name="email" type="email" required maxLength={160} placeholder="you@example.com" /></label></div><label>What can I help with?<input name="subject" required maxLength={120} placeholder="A website, product, or idea" /></label><label>Message<textarea name="message" required maxLength={4000} rows={5} placeholder="Tell me a little about it..." /></label><label className="honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>{status === 'success' && <p className="form-status success" role="status">Message sent. I&apos;ll be in touch soon.</p>}{status === 'error' && <p className="form-status error" role="alert">{error}</p>}<button className="button button-light" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send message'} <ArrowUpRight aria-hidden="true" /></button></form></div></section>
+    <footer className="site-footer section-shell"><span>© 2026 Ansh Vishwakarma</span><span>Built with curiosity in India</span><div><ExternalLink href={portfolio.links.github}>GitHub</ExternalLink><ExternalLink href={portfolio.links.linkedin}>LinkedIn</ExternalLink></div></footer>
+  </main>
 }

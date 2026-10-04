@@ -1,0 +1,49 @@
+export const portfolio = {
+  name: 'Ansh Vishwakarma',
+  role: 'Full-Stack Developer & Founder',
+  location: 'Kanpur, Uttar Pradesh, India',
+  intro: 'I build and ship thoughtful web products from first sketch to production — with a bias for clear systems, useful interfaces, and momentum.',
+  email: 'mailto:contact.ansh03@gmail.com',
+  links: {
+    linkedin: 'https://www.linkedin.com/in/v-ansh/',
+    github: 'https://github.com/Ansh-vibe',
+    currentPortfolio: 'https://ansh-vibe.github.io/ansh-portfolio-website/',
+    oren: 'https://dev-oren.lovable.app',
+  },
+  metrics: [
+    { value: '6+', label: 'live projects' },
+    { value: '5+', label: 'client engagements' },
+    { value: '~40%', label: 'faster time-to-market' },
+    { value: '~30%', label: 'higher lead conversion' },
+  ],
+  skills: {
+    Languages: ['C', 'Python', 'Java', 'SQL'],
+    'Web & backend': ['React', 'Next.js', 'JavaScript (ES6+)', 'HTML', 'CSS', 'Tailwind CSS', 'REST APIs', 'CRM integration'],
+    'Data & cloud': ['MongoDB fundamentals', 'AWS foundations', 'Power BI', 'Excel'],
+    'Core CS': ['Data structures & algorithms', 'OOP', 'DBMS', 'Operating systems', 'Computer networks'],
+    Tools: ['Git', 'GitHub', 'Vercel', 'VS Code'],
+  },
+  experience: [
+    { date: 'Apr 2026 — Present', role: 'Founder & Lead Full-Stack Engineer', company: 'OREN Website Development Services', detail: 'Built and deployed websites for hospitality clients, owning the client journey, product planning, CRM integration, and deployment.' },
+    { date: 'Aug 2026 — Present', role: 'Network Engineering & Analytics Trainee', company: 'Cisco Networking Academy', detail: 'Worked with IPv4/IPv6 subnetting and Python/Power BI network-performance dashboards.' },
+    { date: 'Jul — Sep 2025', role: 'Cybersecurity Intern', company: 'Codec Technologies India (CodeAlpha)', detail: 'Took part in vulnerability assessment and threat-detection labs and applied secure-coding practices.' },
+    { date: 'Sep — Oct 2025', role: 'Campus Ambassador', company: 'Kin-G Technology', detail: 'Achieved 15 registrations in two days and organized 3+ career webinars.' },
+    { date: 'Sep 2024 — Apr 2026', role: 'Class Representative', company: 'Axis Colleges', detail: 'Represented 65+ students.' },
+  ],
+  projects: [
+    { number: '01', title: 'Hospitality, made inviting', tag: 'Client websites', description: 'Three Cape Town restaurant experiences with menu and booking flows, built for real hospitality teams.', links: [{ label: 'Rooftop Reserve', href: 'https://rooftop-reserve-4.preview.emergentagent.com/' }, { label: 'Intimate Feast', href: 'https://intimate-feast.preview.emergentagent.com/' }, { label: 'Khadak Dining Portal', href: 'https://khadak-dining-portal.preview.emergentagent.com/' }] },
+    { number: '02', title: 'CVForge', tag: 'AI resume builder', description: 'An AI resume builder designed to help candidates generate ATS-optimized resumes with less friction.', links: [{ label: 'Open project', href: 'https://cvforge-app.base44.app/' }] },
+    { number: '03', title: 'Telecom Network KPI Dashboard', tag: 'Analytics', description: 'Python, Pandas, Power BI, and Excel brought together to automate normal, warning, and critical KPI triage.', links: [{ label: 'View repository', href: 'https://github.com/Ansh-vibe/Telecom-KPI-Dashboard' }] },
+    { number: '04', title: '4G LTE & 5G NR KPI Analysis', tag: 'Network intelligence', description: 'Analysis of synthetic cellular data using Python and advanced Excel to identify site bottlenecks.', links: [{ label: 'View repository', href: 'https://github.com/Ansh-vibe/4G-LTE-5G-KPI-Analysis' }] },
+  ],
+  education: { degree: 'Bachelor of Computer Applications (BCA)', school: 'Axis Colleges, CSJM University', date: '2024 — 2027', result: 'CGPA 7.62' },
+  leadership: [
+    { title: 'Captain, Axis Colleges Cricket Team', detail: '2024–25 · Represented the college in CSJMU university-level tournaments twice.' },
+    { title: 'Volunteer Leader, NextGenClub Coding Competition', detail: '2025' },
+  ],
+  certifications: ['Cisco Networking Basics', 'Microsoft networking, Power BI, analytics, and Excel automation learning', 'AWS Technical Essentials', 'MongoDB Fundamentals', 'Accenture and Deloitte Forage simulations'],
+  posts: [
+    'https://www.linkedin.com/feed/update/urn:li:activity:7499899491379236865/',
+    'https://www.linkedin.com/feed/update/urn:li:activity:7500297676140457985/',
+  ],
+} as const
