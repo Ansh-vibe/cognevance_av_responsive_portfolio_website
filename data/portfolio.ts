@@ -10,6 +10,15 @@ export const portfolio = {
     currentPortfolio: 'https://ansh-vibe.github.io/ansh-portfolio-website/',
     oren: 'https://dev-oren.lovable.app',
   },
+  marquee: ['FULL-STACK DEVELOPMENT', 'RESPONSIVE WEB DESIGN', 'BOOKING & MENU FLOWS', 'DATA DASHBOARDS', 'REACT · NEXT.JS · PYTHON · SQL'],
+  services: [
+    { title: 'Full-stack website development', detail: 'From product planning and responsive interfaces to backend integration and deployment.' },
+    { title: 'Responsive frontend implementation', detail: 'Clear, accessible UI that works across screens and supports the way people actually use it.' },
+    { title: 'Booking, menu & lead capture', detail: 'Practical flows for hospitality teams and businesses that need more useful web journeys.' },
+    { title: 'Backend, API & database integration', detail: 'Connect the moving parts behind a product with maintainable APIs and data flows.' },
+    { title: 'CRM integration & workflow support', detail: 'Help teams carry a lead from the first interaction into the right next action.' },
+    { title: 'Network & business-data dashboards', detail: 'Turn operational data into focused views for faster decisions and triage.' },
+  ],
   metrics: [
     { value: '6+', label: 'live projects' },
     { value: '5+', label: 'client engagements' },
