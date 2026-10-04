@@ -1,367 +1,99 @@
-# Ansh Vishwakarma — Portfolio
+# Ansh Vishwakarma Portfolio
 
-> **Full-Stack Developer • Founder • Web Developer • Data & Network Analytics**
+Responsive portfolio for Ansh Vishwakarma, built with Next.js App Router, React, TypeScript, and Tailwind CSS. The site presents his full-stack work, selected projects, experience, skills, and an optional Supabase-backed contact form.
 
-🌐 **Live Portfolio:** [ansh-vishwakarma-portfolio-website.vercel.app](https://ansh-vishwakarma-portfolio-website.vercel.app/)
+## Live links
 
-💻 **GitHub:** [github.com/Ansh-vibe](https://github.com/Ansh-vibe)
+- Website: [ansh-vishwakarma-portfolio-website.vercel.app](https://ansh-vishwakarma-portfolio-website.vercel.app/)
+- Source repository: [Ansh-vibe/cognevance_av_responsive_portfolio_website](https://github.com/Ansh-vibe/cognevance_av_responsive_portfolio_website)
 
-📧 **Email:** [contact.ansh03@gmail.com](mailto:contact.ansh03@gmail.com)
+## Technologies
 
----
+- Next.js App Router and React 19
+- TypeScript
+- Tailwind CSS 4 with custom responsive CSS
+- Supabase Postgres for contact-message persistence
+- Vercel for hosting and server-side route execution
+- Native browser form validation and accessible status feedback
 
-## 🚀 About
+## Features
 
-This is the personal portfolio website of **Ansh Vishwakarma**, a full-stack developer and founder based in Kanpur, India.
+- Dark, 3D-inspired responsive design with fluid display type and a moving capabilities marquee.
+- About, services, project, experience, education, skills, certifications, and contact sections.
+- Project cards link to the supplied hospitality previews, CVForge, and source repositories.
+- Accessible contact form with input limits, server-side validation, origin checks, and a honeypot field.
+- Contact submissions are written by a server-only API route; messages are not exposed in the public site.
+- Reduced-motion support, keyboard focus styles, and mobile layout fallbacks.
 
-The portfolio showcases selected projects, technical capabilities, services, and experience across:
+## Requirements
 
-* Full-stack web development
-* Responsive frontend development
-* Backend & API integration
-* Booking and lead-capture systems
-* CRM and workflow integration
-* Data dashboards
-* Telecom/network analytics
-* AI-powered web applications
+- Node.js supported by the current Next.js release in `package.json`.
+- pnpm 12.3.4 (or the package manager version recorded in `package.json`).
+- A Supabase project to enable persisted contact submissions.
 
-The goal of the portfolio is simple:
+## Local setup
 
-> **Build useful software, design clear interfaces, and ship reliable products from idea to production.**
+1. Clone this repository and enter its folder.
+2. Install dependencies:
 
----
+   ```bash
+   pnpm install --frozen-lockfile
+   ```
 
-## ✨ Features
+3. Copy `.env.example` to `.env.local` and set the site URL. Add the Supabase project URL and service-role key if you want the contact form to save submissions locally.
+4. Apply the SQL migration described in [Database setup](#database-setup).
+5. Start the development server:
 
-* Modern, responsive portfolio design
-* Mobile-first interface
-* Smooth section-based navigation
-* About & professional introduction
-* Services showcase
-* Selected project portfolio
-* Project links and external resources
-* Contact / collaboration CTA
-* Clean typography and visual hierarchy
-* Responsive layouts across desktop, tablet, and mobile
-* Component-based architecture
-* Production deployment with Vercel
+   ```bash
+   pnpm dev
+   ```
 
----
+6. Open `http://localhost:3000`.
 
-## 🧑‍💻 Services
+The site can render without Supabase credentials. The form returns a clear setup message and offers the public email link until database credentials are configured.
 
-### Full-Stack Website Development
+## Database setup
 
-End-to-end development covering product planning, frontend interfaces, backend integration, APIs, databases, and deployment.
+1. Create a Supabase project.
+2. In the Supabase SQL Editor, run [`supabase/migrations/202610040001_create_contact_messages.sql`](supabase/migrations/202610040001_create_contact_messages.sql).
+3. Copy the project URL into `NEXT_PUBLIC_SUPABASE_URL`.
+4. Copy the project service-role key into `SUPABASE_SERVICE_ROLE_KEY`. Keep it server-only; never add a `NEXT_PUBLIC_` prefix.
+5. The migration enables Row Level Security and grants no table access to public/anonymous or authenticated roles. The contact route performs validated inserts server-side. Do not add a public read policy.
 
-### Responsive Frontend Development
+## Environment variables
 
-Modern interfaces designed to work across desktop, tablet, and mobile devices.
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Recommended | Canonical site URL and allowed production origin. |
+| `NEXT_PUBLIC_SUPABASE_URL` | For persistence | Supabase project URL used by the server route. |
+| `SUPABASE_SERVICE_ROLE_KEY` | For persistence | Server-only key used to insert contact messages. Never expose it in client code. |
 
-### Booking, Menu & Lead-Capture Systems
+Never commit `.env.local` or real credentials. `.gitignore` excludes local environment files.
 
-Practical web flows for businesses that need booking, menu, enquiry, and customer-conversion functionality.
+## Project workflow
 
-### Backend & API Integration
+1. Update portfolio content and external links in `lib/portfolio-data.ts`.
+2. Update page structure in `app/page.tsx` and design tokens/layout rules in `app/globals.css`.
+3. Update the contact UI in `components/contact-form.tsx`; server validation and database insertion live in `app/api/contact/route.ts`.
+4. For database changes, add a new migration under `supabase/migrations/` and update this README.
+5. Run the local build and type check before pushing:
 
-Connecting frontend applications with APIs, databases, authentication systems, and backend services.
+   ```bash
+   pnpm typecheck
+   pnpm build
+   ```
 
-### CRM & Workflow Integration
+6. Push the approved changes to GitHub. Vercel can build a preview for a branch and production for the configured production branch.
+7. Configure the same environment variables in Vercel and redeploy after changing them.
 
-Building workflows that help businesses move leads from initial interaction to the appropriate next action.
+## Screenshots and reports
 
-### Network & Business Data Dashboards
+- Desktop and mobile captures: [`docs/screenshots/`](docs/screenshots/)
+- Screenshot notes: [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)
+- Project report: [`reports/PROJECT_REPORT.md`](reports/PROJECT_REPORT.md)
+- Validation report: [`reports/VALIDATION_REPORT.md`](reports/VALIDATION_REPORT.md)
+- Deployment handoff: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
 
-Transforming operational and network data into focused dashboards for monitoring, analysis, and decision-making.
+## Contact
 
----
-
-## 📂 Featured Projects
-
-### 01 — Hospitality Websites
-
-**Hospitality, made inviting.**
-
-A collection of production-oriented restaurant experiences designed for hospitality businesses, including menu and booking flows.
-
-**Focus:**
-
-* Responsive web design
-* Restaurant websites
-* Menu presentation
-* Booking flows
-* Conversion-focused UX
-
----
-
-### 02 — CVForge
-
-**AI Resume Builder**
-
-An AI-powered resume-building application designed to help candidates create ATS-optimized resumes with less friction.
-
-**Focus:**
-
-* AI-assisted resume generation
-* ATS optimization
-* Resume customization
-* Candidate experience
-* Web application development
-
----
-
-### 03 — Telecom Network KPI Dashboard
-
-A network analytics project combining Python, Pandas, Excel, and Power BI to analyze telecom KPIs and categorize network conditions.
-
-**Analyzed areas include:**
-
-* Latency
-* Throughput
-* Packet loss
-* Availability
-* Call drop rate
-* Traffic
-* KPI severity
-
-The dashboard helps classify network conditions into:
-
-`NORMAL` → `WARNING` → `CRITICAL`
-
----
-
-### 04 — 4G LTE & 5G NR KPI Analysis
-
-A telecom analytics project focused on analyzing synthetic cellular-network data and identifying potential site-level bottlenecks.
-
-**Technology focus:**
-
-* Python
-* Pandas
-* Excel
-* Telecom KPI analysis
-* Data visualization
-* Network performance analysis
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge\&logo=next.js\&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge\&logo=react\&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge\&logo=typescript\&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge\&logo=tailwindcss\&logoColor=white)
-
-### Backend & APIs
-
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge\&logo=node.js\&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge\&logo=express\&logoColor=white)
-
-### Data & Analytics
-
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge\&logo=pandas\&logoColor=white)
-![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge\&logo=powerbi\&logoColor=black)
-![Microsoft Excel](https://img.shields.io/badge/Excel-217346?style=for-the-badge\&logo=microsoftexcel\&logoColor=white)
-
-### Development Tools
-
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge\&logo=git\&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge\&logo=github\&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge\&logo=visualstudiocode\&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge\&logo=vercel\&logoColor=white)
-
----
-
-## 🏗️ Project Structure
-
-```text
-cognevance_av_responsive_portfolio_website/
-│
-├── app/
-│   ├── ...
-│   └── ...
-│
-├── components/
-│   └── ui/
-│       └── ...
-│
-├── lib/
-│   └── ...
-│
-├── public/
-│   └── ...
-│
-├── .gitignore
-├── components.json
-├── next.config.mjs
-├── package.json
-├── pnpm-lock.yaml
-├── pnpm-workspace.yaml
-├── postcss.config.mjs
-└── tsconfig.json
-```
-
----
-
-## ⚙️ Getting Started
-
-### Prerequisites
-
-Make sure you have installed:
-
-* Node.js
-* pnpm
-* Git
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Ansh-vibe/cognevance_av_responsive_portfolio_website.git
-```
-
-### 2. Enter the project directory
-
-```bash
-cd cognevance_av_responsive_portfolio_website
-```
-
-### 3. Install dependencies
-
-```bash
-pnpm install
-```
-
-### 4. Start the development server
-
-```bash
-pnpm dev
-```
-
-The application should now be available at:
-
-```text
-http://localhost:3000
-```
-
----
-
-## 🏭 Production Build
-
-Create a production build with:
-
-```bash
-pnpm build
-```
-
-Run the production application with:
-
-```bash
-pnpm start
-```
-
----
-
-## 🌐 Deployment
-
-The portfolio is deployed on **Vercel**.
-
-Live website:
-
-**https://ansh-vishwakarma-portfolio-website.vercel.app/**
-
-A typical deployment workflow is:
-
-```text
-GitHub
-   │
-   ▼
-Vercel
-   │
-   ▼
-Production Build
-   │
-   ▼
-Live Portfolio
-```
-
----
-
-## 🎯 Design Philosophy
-
-The portfolio follows a simple product-development philosophy:
-
-**Clarity → Usability → Performance → Deployment**
-
-Rather than focusing only on visual design, the project is intended to communicate how a developer approaches real-world products:
-
-* Understand the problem
-* Design the experience
-* Build the interface
-* Connect the backend
-* Integrate data and APIs
-* Test the experience
-* Deploy to production
-
----
-
-## 📈 What I'm Building Toward
-
-My current focus is developing deeper expertise across:
-
-* Full-stack JavaScript development
-* React & Next.js
-* Backend APIs
-* Database systems
-* AI-powered applications
-* Data analytics
-* Telecom/network analytics
-* Cloud deployment
-* Production-grade web systems
-
----
-
-## 🤝 Let's Work Together
-
-Have a project, product idea, website requirement, or business workflow that needs to be built?
-
-I'm open to collaborating on:
-
-* Websites
-* Web applications
-* SaaS products
-* Booking systems
-* Business dashboards
-* AI-powered applications
-* Data-driven products
-* Custom business workflows
-
-### 📩 Contact
-
-**Ansh Vishwakarma**
-
-📧 **[contact.ansh03@gmail.com](mailto:contact.ansh03@gmail.com)**
-
-🌐 **Portfolio:**
-https://ansh-vishwakarma-portfolio-website.vercel.app/
-
-💻 **GitHub:**
-https://github.com/Ansh-vibe
-
----
-
-## 📄 License
-
-This project is intended primarily as a personal portfolio project.
-
-Please do not reproduce the portfolio design, branding, personal information, or assets as your own.
-
----
-
-## ⭐ Support
-
-If you find the project useful or interesting, consider giving the repository a ⭐ on GitHub.
-
-**Built and shipped by Ansh Vishwakarma.**
+Use the form on the site or email [contact.ansh03@gmail.com](mailto:contact.ansh03@gmail.com).
